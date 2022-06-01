@@ -1,0 +1,50 @@
+{
+	"name": "surgesound",
+	"version": "1.0.0",
+	"description": "",
+	"main": "main.js",
+	"devDependencies": {
+		"@wordpress/scripts": "^12.1.0",
+		"dir-archiver": "^1.1.1",
+		"gulp": "^4.0.2",
+		"gulp-filter": "^7.0.0",
+		"gulp-sass": "^5.0.0",
+		"node-sass": "^6.0.1",
+		"rtlcss": "^2.5.0"
+	},
+	"rtlcssConfig": {
+		"options": {
+			"autoRename": false,
+			"autoRenameStrict": false,
+			"blacklist": {},
+			"clean": true,
+			"greedy": false,
+			"processUrls": false,
+			"stringMap": []
+		},
+		"plugins": [],
+		"map": false
+	},
+	"scripts": {
+		"watch": "node-sass sass/ -o ./ --source-map true --output-style compressed --indent-type tab --indent-width 1 -w",
+		"compile:css": "node-sass sass/ -o ./ && stylelint '*.css' --fix || true && stylelint '*.css' --fix",
+		"compile:rtl": "rtlcss style.css style-rtl.css",
+		"lint:scss": "wp-scripts lint-style 'sass/**/*.scss'",
+		"lint:js": "wp-scripts lint-js 'js/*.js'",
+		"bundle": "dir-archiver --src . --dest ../_s.zip --exclude .DS_Store .stylelintrc.json .eslintrc .git .gitattributes .github .gitignore README.md composer.json composer.lock node_modules vendor package-lock.json package.json .travis.yml phpcs.xml.dist sass style.css.map"
+	},
+	"dependencies": {
+		"@popperjs/core": "^2.9.2",
+		"angular": "^1.8.2",
+		"bootstrap": "^5.0.1",
+		"gulp-concat": "^2.6.1",
+		"gulp-minify-css": "^1.2.4",
+		"gulp-uglify": "^3.0.2",
+		"jquery": "^3.6.0",
+		"live-server": "^1.2.1",
+		"starlette-sass-helpers": "^1.0.4"
+	},
+	"keywords": [],
+	"author": "surgesound",
+	"license": "SS"
+}

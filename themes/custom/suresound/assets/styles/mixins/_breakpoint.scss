@@ -1,0 +1,28 @@
+@mixin breakpoint($breakpoint, $direction: down) {
+
+	@if map-has-key($breakpoints, $breakpoint) {
+		@if ($direction == up) {
+			@media (min-width: #{map-get($breakpoints, $breakpoint)})  { 
+				@content; 
+			}
+		}
+		@else if ($direction == down) {
+			@media (max-width: #{map-get($breakpoints, $breakpoint) - 1})  { 
+				@content; 
+			}
+		}
+		@else {
+			@warn '2nd parameter "#{$direction}" is not valid. Use one of the following: up, down';
+		}
+	}
+
+	@else if ($breakpoint == retina) {
+		@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
+			@content; 
+		}
+	}
+
+	@else {
+		@warn '1st parameter "#{$breakpoint}" is not valid. Use one of the following: #{implode($breakpoints)}';
+	}
+}

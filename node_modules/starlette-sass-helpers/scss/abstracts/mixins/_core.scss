@@ -1,0 +1,7 @@
+/**
+ * How to use: 
+ * @include error-invalid-argument( small, 'sm, md, lg' );
+ */
+@mixin error-invalid-argument( $invalid-argument, $valid-argument-options ) {
+    @error "Invalid direction specified: #{$invalid-argument}. Use one of the following: #{$valid-argument-options}";
+}

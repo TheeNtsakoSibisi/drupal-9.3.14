@@ -1,0 +1,7 @@
+@function map($array, $selector) {
+	@if map-has-key($array, $selector) {
+		@return map-get($array, $selector);
+	}
+	
+	@error "#{$selector} does not exist. Use one of the following: #{implode($array)}";
+}

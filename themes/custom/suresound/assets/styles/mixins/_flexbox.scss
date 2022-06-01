@@ -1,0 +1,363 @@
+/**
+ * How to use: 	@include flexbox;
+ * Read more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox
+ */
+@mixin flexbox {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+/**
+ * How to use: 	@include inline-flex;
+ * Read more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox
+ */
+@mixin inline-flex {
+	display: -webkit-inline-box;
+	display: -moz-inline-box;
+	display: -webkit-inline-flex;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+}
+
+/**
+ * How to use: 	@include flex-direction(row);
+ * Read more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction
+ * Options: 	row, column, row-reverse, column-reverse
+ */
+@mixin flex-direction($value: row) {
+
+	@if $value == row or $value == column or $value == row-reverse or $value == column-reverse {
+
+		@if $value == row-reverse {
+			-webkit-box-direction: reverse;
+			-webkit-box-orient: horizontal;
+			-moz-box-direction: reverse;
+			-moz-box-orient: horizontal;
+		} @else if $value == column {
+			-webkit-box-direction: normal;
+			-webkit-box-orient: vertical;
+			-moz-box-direction: normal;
+			-moz-box-orient: vertical;
+		} @else if $value == column-reverse {
+			-webkit-box-direction: reverse;
+			-webkit-box-orient: vertical;
+			-moz-box-direction: reverse;
+			-moz-box-orient: vertical;
+		} @else {
+			-webkit-box-direction: normal;
+			-webkit-box-orient: horizontal;
+			-moz-box-direction: normal;
+			-moz-box-orient: horizontal;
+		}
+	
+		-webkit-flex-direction: $value;
+		-ms-flex-direction: $value;
+		flex-direction: $value;
+	}
+
+	@else {
+		@include values-warning('row, column, row-reverse, column-reverse');
+	}
+}
+
+/**
+ * How to use: 	@include flex-wrap(nowrap);
+ * Read more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap
+ * Options: 	nowrap, wrap, wrap-reverse
+ */
+@mixin flex-wrap($value: nowrap) {
+
+	@if $value == nowrap or $value == wrap or $value == wrap-reverse {
+
+		// No Webkit/FF Box fallback.
+		-webkit-flex-wrap: $value;
+	
+		@if $value == nowrap {
+			-ms-flex-wrap: none;
+		} @else {
+			-ms-flex-wrap: $value;
+		}
+	
+		flex-wrap: $value;
+	}
+
+	@else {
+		@include values-warning('nowrap, wrap, wrap-reverse');
+	}
+}
+
+/**
+ * How to use: 	@include flex-flow(row nowrap);
+ * Read more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/flex-flow
+ * Options: 	row nowrap, row-reverse nowrap, column wrap-reverse, column wrap
+ */
+@mixin flex-flow($values: (row nowrap)) {
+
+	@if $value == (row nowrap) or $value == (row-reverse nowrap) or $value == (column wrap-reverse) or $value == (column wrap) {
+
+		// No Webkit/FF Box fallback.
+		-webkit-flex-flow: $values;
+		-ms-flex-flow: $values;
+		flex-flow: $values;
+	}
+
+	@else {
+		@include values-warning('row nowrap, row-reverse nowrap, column wrap-reverse, column wrap');
+	}
+}
+
+/**
+ * How to use: 	@include order(0);
+ * Read more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/order
+ * Options: 	must be an integer
+ */
+@mixin order($int: 0) {
+	
+	@if round($int) == $int	{
+		-webkit-box-ordinal-group: $int + 1;
+		-moz-box-ordinal-group: $int + 1;
+		-webkit-order: $int;
+		-ms-flex-order: $int;
+		order: $int;
+	}
+
+	@else {
+		@include values-warning('must be an integer');
+	}
+}
+
+/**
+ * How to use: 	@include flex-grow(1);
+ * Read more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow
+ * Options: 	must be an integer
+ */
+@mixin flex-grow($int: 1) {
+
+	@if round($int) == $int	{
+		-webkit-box-flex: $int;
+		-moz-box-flex: $int;
+		-webkit-flex-grow: $int;
+		-ms-flex: $int;
+		flex-grow: $int;
+	}
+
+	@else {
+		@include values-warning('must be an integer');
+	}
+}
+
+/**
+ * How to use: 	@include flex-shrink(0);
+ * Read more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink
+ * Options: 	must be an integer
+ */
+@mixin flex-shrink($int: 0) {
+
+	@if is-integer($int)	{
+		-webkit-flex-shrink: $int;
+		-moz-flex-shrink: $int;
+		-ms-flex: $int;
+		flex-shrink: $int;
+	}
+
+	@else {
+		@include values-warning('must be an integer');
+	}
+}
+
+/**
+ * How to use: 	@include flex-basis(auto);
+ * Read more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis
+ * Options: 	must be a number (0, 50px, etc) or auto, fill, max-content, min-content, fit-content, content, inherit, initial, unset
+ */
+@mixin flex-basis($value: auto) {
+
+	@if is-number($value) or 
+		$value == auto or
+		$value == fill or
+		$value == max-content or 
+		$value == min-content or 
+		$value == fit-content or 
+		$value == content or 
+		$value == inherit or 
+		$value == initial or 
+		$value == unset {
+
+			-webkit-flex-basis: $value;
+			flex-basis: $value;
+	}
+
+	@else {
+		@include values-warning('must be a number (0, 50px, etc) or auto, fill, max-content, min-content, fit-content, content, inherit, initial, unset');
+	}
+}
+
+/**
+ * How to use: 	@include flex(0, 0, auto);
+ * Read more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/flex
+ * Options: 	
+ */
+@mixin flex($fg: 1, $fs: 0, $fb: auto) {
+
+	// Set a variable to be used by box-flex properties
+	$fg-boxflex: $fg;
+
+	// Box-Flex only supports a flex-grow value so lets grab the
+	// first item in the list and just return that.
+	@if type-of($fg) == 'list' {
+		$fg-boxflex: nth($fg, 1);
+	}
+
+	-webkit-box: $fg-boxflex;
+	-moz-box: $fg-boxflex;
+	-webkit-flex: $fg $fs $fb;
+	-ms-flexbox: $fg $fs $fb;
+	flex: $fg $fs $fb;
+
+}
+
+/**
+ * How to use: 	justify-content(flex-start);
+ * Read more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content
+ * Options: 	flex-start, flex-end, center, space-between, space-around, space-evenly
+ */
+@mixin justify-content($value: flex-start) {
+
+	@if $value == flex-start or 
+		$value == flex-end or 
+		$value == center or 
+		$value == space-between or 
+		$value == space-around or 
+		$value == space-evenly {
+
+		@if $value == flex-start {
+			-webkit-box-pack: start;
+			-moz-box-pack: start;
+			-ms-flex-pack: start;
+		} @else if $value == flex-end {
+			-webkit-box-pack: end;
+			-moz-box-pack: end;
+			-ms-flex-pack: end;
+		} @else if $value == space-between {
+			-webkit-box-pack: justify;
+			-moz-box-pack: justify;
+			-ms-flex-pack: justify;
+		} @else if $value == space-around {
+			-ms-flex-pack: distribute;
+		} @else {
+			-webkit-box-pack: $value;
+			-moz-box-pack: $value;
+			-ms-flex-pack: $value;
+		}
+
+		-webkit-justify-content: $value;
+		justify-content: $value;
+	}
+
+	@else {
+		@include values-warning('flex-start, flex-end, center, space-between, space-around, space-evenly');
+	}
+}
+
+/**
+ * How to use: 		@include align-items(stretch)
+ * Find out more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/align-items
+ * Options: 		flex-start, flex-end, center, baseline, stretch
+ */
+@mixin align-items($value: stretch) {
+
+	@if $align == flex-start or 
+		$align == flex-end or 
+		$align == center or 
+		$align == baseline or 
+		$align == stretch {
+
+		@if $value == flex-start {
+			-webkit-box-align: start;
+			-moz-box-align: start;
+			-ms-flex-align: start;
+		} @else if $value == flex-end {
+			-webkit-box-align: end;
+			-moz-box-align: end;
+			-ms-flex-align: end;
+		} @else {
+			-webkit-box-align: $value;
+			-moz-box-align: $value;
+			-ms-flex-align: $value;
+		}
+
+		-webkit-align-items: $value;
+		align-items: $value;
+	} 
+	
+	@else {
+		@include values-warning('flex-start, flex-end, center, baseline, stretch');
+	}
+}
+
+/**
+ * How to use: 		@include align-self(auto);
+ * Find out more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/align-self
+ * Options: 		flex-start, flex-end, center, baseline, stretch
+ */
+@mixin align-self($value: auto) {
+
+	@if $align == flex-start or 
+		$align == flex-end or 
+		$align == center or 
+		$align == baseline or 
+		$align == stretch {
+
+		// No Webkit Box Fallback.
+		-webkit-align-self: $value;
+
+		@if $value == flex-start {
+			-ms-flex-item-align: start;
+		} @else if $value == flex-end {
+			-ms-flex-item-align: end;
+		} @else {
+			-ms-flex-item-align: $value;
+		}
+
+		align-self: $value;
+	} 
+	
+	@else {
+		@include values-warning('flex-start, flex-end, center, baseline, stretch');
+	}
+}
+ 
+/**
+ * How to use: 	@include align-content(stretch);
+ * Read more: 	https://developer.mozilla.org/en-US/docs/Web/CSS/align-content
+ * Options: 	flex-start, flex-end, space-between, space-around, stretch
+ */
+@mixin align-content($value: stretch) {
+
+	@if $align == flex-start or 
+		$align == flex-end or 
+		$align == space-between or 
+		$align == space-around or 
+		$align == stretch {
+
+			// No Webkit Box Fallback.
+			-webkit-align-content: $value;
+		
+			@if $value == flex-start {
+				-ms-flex-line-pack: start;
+			} @else if $value == flex-end {
+				-ms-flex-line-pack: end;
+			} @else {
+				-ms-flex-line-pack: $value;
+			}
+		
+			align-content: $value;
+	}
+
+	@else {
+		@include values-warning('flex-start, flex-end, space-between, space-around, stretch');
+	}
+}

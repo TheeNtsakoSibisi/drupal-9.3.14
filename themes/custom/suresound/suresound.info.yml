@@ -1,0 +1,12 @@
+name: SureSound
+type: theme
+description: 'A SureSound Theme.'
+core_version_requirement: ^8 || ^9
+libraries:
+  - suresound/global-styling
+base theme: classy
+regions:
+  branding: Branding
+  navigation: 'Main Navigation'
+  content: 'Content'
+  footer: 'Footer'

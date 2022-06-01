@@ -1,0 +1,26 @@
+@use 'sass:math';
+
+/**
+ * Remove: px, em, rem, %
+ * @return int
+ */
+@function strip-units( $number ) {
+    @return math.div($number, ($number * 0 + 1));
+}
+
+/**
+ * Get: px, em, rem, %
+ * @return string
+ */
+@function get-unit( $value ) {
+    @return str-slice($value * 0 + "", 2, -1);
+}
+
+/**
+ * Convert "px, em, %" to "rem"
+ * @return string
+ */
+@function rem( $number ) {
+    $rem: math.div($number, $base-size);
+    @return #{$rem}rem;
+}

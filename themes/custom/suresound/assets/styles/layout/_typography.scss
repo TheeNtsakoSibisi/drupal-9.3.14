@@ -1,0 +1,25 @@
+// Elementor standard container
+.elementor-container {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: "cambria" !important;
+	}
+
+	p,
+	span {
+		font-family: "helneue-light" !important;
+	}
+
+	a {
+		font-family: "helneue-light" !important;
+	}
+}
+
+.elementor-button-text {
+	letter-spacing: 4px !important;
+    font-size: 11pt !important;
+}

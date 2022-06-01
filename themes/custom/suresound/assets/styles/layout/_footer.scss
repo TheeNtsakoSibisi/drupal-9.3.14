@@ -1,0 +1,15 @@
+.footer--top {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+   }
+   
+   
+   .footer--top .region {
+    padding: 5px;
+   }
+   
+   
+   .region-footer-first, .region-footer-second, .region-footer-third {
+    flex: 0 1 30%;
+   }

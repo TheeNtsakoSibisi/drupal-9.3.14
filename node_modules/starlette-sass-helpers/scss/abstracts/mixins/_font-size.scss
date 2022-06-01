@@ -1,0 +1,38 @@
+/**
+ * Fluid (responsive) typography
+ * 
+ * $min: mobile font size in px
+ * $max: desktop font size in px
+ */
+@mixin font-size( $min, $max ) {
+
+    $base-size: strip-units($base-size);
+
+    $min-vw: map-get($breakpoints, sm);
+    $max-vw: map-get($breakpoints, xl);
+    
+    $min-no-unit: strip-units($min);
+    $max-no-unit: strip-units($max);
+    
+    $min-vw-no-unit: strip-units($min-vw);
+    $max-vw-no-unit: strip-units($max-vw);
+    
+    @if get-unit($min) == "rem" or get-unit($min) == "em" {
+        $min-no-unit: strip-units($min) * $base-size;
+        $max-no-unit: strip-units($max) * $base-size;
+    }
+    
+    $responsive: calc(#{$min-no-unit}px + (#{$max-no-unit} - #{$min-no-unit}) * ((100vw - #{$min-vw}) / (#{$max-vw-no-unit} - #{$min-vw-no-unit})));
+
+    $responsive-font-size: calc(#{$min-no-unit}px + (#{$max-no-unit} - #{$min-no-unit}) * ( (100vw - #{$min-vw}) / ( #{$max-vw-no-unit} - #{$min-vw-no-unit})));
+
+    font-size: $responsive-font-size;
+  
+    @media screen and (max-width: #{$min-vw}) { 
+        font-size: #{$min}px;
+    }
+
+    @media screen and (min-width: #{$max-vw}) { 
+        font-size: #{$max}px;
+    }
+}

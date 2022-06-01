@@ -1,0 +1,60 @@
+@use 'sass:math';
+
+/**
+ * Linear Background Gradient
+ * 
+ * How to use:
+ * --- @include linear-gradient( down, rgba(255,255,255,0) #fff );
+ * --- @include linear-gradient( right, blue red yellow black );
+ * 
+ * $direction:
+ * --- up
+ * --- down
+ * --- left
+ * --- right
+ * 
+ * $colors: list (example: red blue green)
+ * 
+ */
+@mixin linear-gradient( $direction: down, $colors ) {
+
+	@if map-has-key( $linear-gradient-directions, $direction ) {
+
+		$direction-setting: map-get( $linear-gradient-directions, $direction );
+		$total-colors: length( $colors );
+
+		@if ( $total-colors == 1 ) {
+			@error "You must include more than 1 color for the background gradient to work.";
+		}
+
+		@else {
+
+			$percentage: 		math.div( 100%, $total-colors - 1 );
+			$first-color: 		nth( $colors, 1 );
+			$last-color: 		nth( $colors, $total-colors );
+			$gradient-colors: 	'';
+	
+			@each $color in $colors {
+	
+				$color-index: index( $colors, $color ) - 1;
+				$color-position: $color-index * $percentage;
+				$gradient-colors: $gradient-colors + #{$color} + ' ' + #{$color-position};
+	
+				@if ( $color-index+1 != $total-colors ) {
+					$gradient-colors: $gradient-colors + ', ';
+				}
+			}
+	
+			background: #{$first-color};
+			background: -moz-linear-gradient(#{$direction-setting}, #{$gradient-colors});
+			background: -webkit-linear-gradient(#{$direction-setting}, #{$gradient-colors});
+			background: linear-gradient(#{$direction-setting}, #{$gradient-colors});
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$first-color}",endColorstr="#{$last-color}",GradientType=1);
+		}
+	} 
+
+	@else {
+		@include error-invalid-argument( '$direction', $linear-gradient-directions );
+	}
+
+}

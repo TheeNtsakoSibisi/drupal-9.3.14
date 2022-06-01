@@ -1,0 +1,15 @@
+a {
+    text-decoration: none;
+}
+
+// Functions
+@import 'functions/implode';
+@import 'functions/map';
+
+// Layout
+@import 'layout/fonts';
+@import 'layout/typography';
+@import 'layout/article';
+@import 'layout/header';
+@import 'layout/footer'; 
+@import 'layout/gallery';

@@ -1,0 +1,22 @@
+// Importing fonts
+
+@font-face {
+    font-family: 'cambria';
+    src: url(../fonts/cambria/Cambria.ttf) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'helneue-light';
+    src: url(../fonts/helvetica-neue/HelveticaNeueLTStd-Lt.otf) format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'helneue-bold';
+    src: url(../fonts/helvetica-neue/HelveticaNeueLTStd-Bd.otf) format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}

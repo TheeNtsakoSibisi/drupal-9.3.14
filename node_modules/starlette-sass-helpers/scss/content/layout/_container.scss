@@ -1,0 +1,15 @@
+// class="container"
+.container {
+    max-width: $container-width;
+    padding-right: $gutter-size;
+    padding-left: $gutter-size;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+
+    // class="container-fluid"
+    &-fluid {
+        @extend .container;
+        max-width: none;
+    }
+}

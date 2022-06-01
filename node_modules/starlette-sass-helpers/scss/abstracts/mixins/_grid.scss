@@ -1,0 +1,27 @@
+@mixin grid-class-selectors( $class-name, $grid-size ) {
+    
+    // (example) .column-2
+    .#{$grid-column-class-name}-#{$class-name} {
+        width: $grid-size;
+    }
+
+    // (example) .offset-column-2
+    .#{$grid-column-offset-class-name}-#{$grid-column-class-name}-#{$class-name} {
+        margin-left: $grid-size;
+    }
+
+    @each $breakpoint, $value in $breakpoints {
+        @include breakpoint( $breakpoint, min ) {
+
+            // (example) .column-md-2
+            .#{$grid-column-class-name}-#{$breakpoint}-#{$class-name} {
+                width: $grid-size;
+            }
+
+            // (example) .offset-column-md-2
+            .#{$grid-column-offset-class-name}-#{$grid-column-class-name}-#{$breakpoint}-#{$class-name} {
+                margin-left: $grid-size;
+            }
+        }
+    }
+}

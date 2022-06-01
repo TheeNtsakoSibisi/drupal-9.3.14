@@ -1,0 +1,19 @@
+/**
+ * Array to string conversion
+ * Turns (1, 2, 3, 4) into "1, 2, 3, 4"
+ */
+@function implode($array, $glue: ', ', $is-nested: false) {
+	$result: null;
+
+	@for $i from 1 through length($array) {
+		$e: nth($array, $i);
+		$label: nth($e, 1);
+		$result: $result#{$label};
+
+		@if ($i < length($array)) {
+			$result: $result#{$glue};
+		}
+	}
+
+	@return $result;
+}
